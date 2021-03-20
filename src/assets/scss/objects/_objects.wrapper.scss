@@ -1,0 +1,16 @@
+/* ==========================================================================
+   #WRAPPER
+   ========================================================================== */
+
+.o-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: calc(100vh - 224px);
+  height: 100%;
+
+  &--row {
+    flex-direction: row;
+  }
+}
