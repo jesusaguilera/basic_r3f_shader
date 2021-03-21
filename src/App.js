@@ -1,18 +1,17 @@
 import React from 'react';
-import R3f from './components/R3f';
+import Home from './container/Home';
 
 // Styles
 import "./assets/scss/main.scss";
 
 function App() {
+
   return (
     <React.Fragment>
-      {/* <div className="App"> */}
-      {/*   <h1>Hello World</h1> */}
-      {/* </div> */}
-      <R3f />
+      <Home />
     </React.Fragment>
   );
+
 }
 
 export default App;

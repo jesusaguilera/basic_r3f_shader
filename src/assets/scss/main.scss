@@ -60,11 +60,13 @@
 @import "objects/objects.zindex";
 @import "objects/objects.font";
 @import "objects/objects.width";
+@import "objects/objects.height";
 @import "objects/objects.cursor";
 
 /************************************************************
  * COMPONENTS
  ************************************************************/
+@import "components/components.scrollbar";
 
 
 /************************************************************

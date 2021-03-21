@@ -16,7 +16,7 @@ export default `
     vec3 pos = position;
 
     // Oscillating movement on y axis 
-    pos.y += sin(u_time) * 0.05;
+    pos.y += sin(u_time) * 1.5;
 
     gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0 );
   }

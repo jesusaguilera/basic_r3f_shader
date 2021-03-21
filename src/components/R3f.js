@@ -1,51 +1,51 @@
-import React, { useEffect } from "react"
+import React, { useRef, Suspense } from "react";
 import { Canvas } from "react-three-fiber";
 import HtmlContent from "./HtmlContent";
-import { Plane } from "@react-three/drei";
 
-// Shaders
-import fragment from '../assets/shaders/fragment';
-import vertex from '../assets/shaders/vertex';
+import Planes from "./Planes"
+import ScrollBar from "./ScrollBar"
 
+const R3f = (props) => {
 
-const R3f = () => {
-
-  let time = 0;
-  const uniforms = {
-    u_time: { type: "f", value: 0.0 },
-  };
-
-  const raq = () => {
-    time += 0.05;
-    uniforms.u_time.value = time;
-    requestAnimationFrame(raq)
-  }
-
-  useEffect(()=> {
-    raq();
-  }, [])
+  const domContent = useRef();
 
   return (
-    <Canvas
-      colorManagement
-      camera={{
-        position: [0, 0, 2],
-        fov: 70,
-        aspect: window.innerWidth / window.innerHeight,
-        near: 0.01,
-        far: 1000,
-      }}
-    >
-      <Plane onClick={() => alert("yes!")} args={[1.5, 1, 20]}>
-        <shaderMaterial
-          uniforms={uniforms}
-          vertexShader={vertex}
-          fragmentShader={fragment}
-        />
-      </Plane>
+    <React.Fragment>
+      <Canvas
+        colorManagement
+        camera={{
+          position: [0, 0, 120],
+          fov: 70,
+          aspect: window.innerWidth / window.innerHeight,
+          near: 0.01,
+          far: 1000,
+        }}
+      >
+        <Suspense fallback={null}>
+          <Planes smooth={props.smooth}/>
+          <HtmlContent domContent={domContent} positionY={0}>
+            <div className="o-wrapper">
+              <h1>Hello World</h1>
+            </div>
+          </HtmlContent>
+          <HtmlContent domContent={domContent} positionY={0}>
+            <div className="o-wrapper">
+              <h1>Noemí Flores</h1>
+            </div>
+          </HtmlContent>
+          <HtmlContent domContent={domContent} positionY={0}>
+            <div className="o-wrapper">
+              <h1>Aguilera Noemí</h1>
+            </div>
+          </HtmlContent>
+        </Suspense>
+      </Canvas>
 
-      <HtmlContent />
-    </Canvas>
+      <div className="o-wrapper__root--fixed">
+        <div ref={domContent}></div>
+      </div>
+      <ScrollBar smooth={props.smooth}/>
+    </React.Fragment>
   );
 };
 
