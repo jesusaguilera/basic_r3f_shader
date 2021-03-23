@@ -21,11 +21,11 @@ const R3f = (props) => {
     let body = document.body;
 
     if(index === 0) {
-      body.style.backgroundColor = "white";
+      body.style.backgroundColor = "#B1A2A1";
     }else if (index ===  1) {
       body.style.backgroundColor = "#071212";
     }else {
-      body.style.backgroundColor = "pink";
+      body.style.backgroundColor = "white";
     }
   }
 

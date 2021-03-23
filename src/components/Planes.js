@@ -8,6 +8,8 @@ import lerp from "lerp";
 import fragment from '../assets/shaders/fragment';
 import vertex from '../assets/shaders/vertex';
 
+let last = 0;
+
 const Planes = (props) => {
 
   const [imgTexture] = useLoader(THREE.TextureLoader, [props.img])
@@ -19,8 +21,8 @@ const Planes = (props) => {
   useEffect(()=>{
     meshRef.current.position.x = 50;
     meshRef.current.position.y = props.posY;
-    // meshRef.current.rotation.x = 0.025;
     meshRef.current.rotation.y = -0.032;
+    // meshRef.current.rotation.x = 0.025;
     // meshRef.current.rotation.z = -0.1;
   },[])
 
@@ -30,15 +32,18 @@ const Planes = (props) => {
     u_bend: { type: "f", value: 0.0 }
   }),[])
 
-  let dl = 0 ;
+  let last = 0;
+
   useFrame((state, delta) => {
-    window.addEventListener("wheel", e => {
-      dl = e.deltaY;
-    })
+    // update u_time
     uniforms.u_time.value += delta;
-    uniforms.u_bend.value = lerp(uniforms.u_bend.value, (dl * 0.5) * 0.55, 0.1);
-    // uniforms.u_bend.value = lerp(uniforms.u_bend.value, (window.scrollY * 0.0002) + Math.abs(meshRef.current.position.y * 0.2), 0.1);
+
+    // Plane position
     meshRef.current.position.y = lerp(meshRef.current.position.y, props.posY +  window.scrollY, 0.045);
+
+    // bend
+    uniforms.u_bend.value = lerp(uniforms.u_bend.value, (meshRef.current.position.y - last) * 1.5, 0.1)
+    last = meshRef.current.position.y
   });
 
   return (
