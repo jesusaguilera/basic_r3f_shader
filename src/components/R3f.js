@@ -5,9 +5,29 @@ import HtmlContent from "./HtmlContent";
 import Planes from "./Planes"
 import ScrollBar from "./ScrollBar"
 
+// Images
+import img_01 from '../assets/images/01_img.jpg';
+import img_02 from '../assets/images/02_img.jpg';
+
+
 const R3f = (props) => {
 
   const domContent = useRef();
+
+  const images = [img_01, img_02];
+
+  const handlePlaneClick = (index) => {
+
+    let body = document.body;
+
+    if(index === 0) {
+      body.style.backgroundColor = "white";
+    }else if (index ===  1) {
+      body.style.backgroundColor = "#071212";
+    }else {
+      body.style.backgroundColor = "pink";
+    }
+  }
 
   return (
     <React.Fragment>
@@ -22,29 +42,37 @@ const R3f = (props) => {
         }}
       >
         <Suspense fallback={null}>
-          <Planes smooth={props.smooth}/>
-          <HtmlContent domContent={domContent} positionY={0}>
-            <div className="o-wrapper">
-              <h1>Hello World</h1>
-            </div>
-          </HtmlContent>
-          <HtmlContent domContent={domContent} positionY={0}>
-            <div className="o-wrapper">
-              <h1>Noemí Flores</h1>
-            </div>
-          </HtmlContent>
-          <HtmlContent domContent={domContent} positionY={0}>
-            <div className="o-wrapper">
-              <h1>Aguilera Noemí</h1>
-            </div>
-          </HtmlContent>
+          {/* <HtmlContent domContent={domContent} positionY={0}> */}
+          {/*   <div className="o-wrapper"> */}
+          {/*     <h1>Hello World</h1> */}
+          {/*   </div> */}
+          {/* </HtmlContent> */}
+          {/* <HtmlContent domContent={domContent} positionY={0}> */}
+          {/*   <div className="o-wrapper"> */}
+          {/*     <h1>Made in heaven</h1> */}
+          {/*   </div> */}
+          {/* </HtmlContent> */}
+          {/* <HtmlContent domContent={domContent} positionY={0}> */}
+          {/*   <div className="o-wrapper"> */}
+          {/*     <h1>Rolling stones</h1> */}
+          {/*   </div> */}
+          {/* </HtmlContent> */}
+
+          {
+            [img_01,img_02].map((img, index) => {
+              console.log(img)
+              return(
+                <Planes key={`plane-${index}`} img={img} posY={-index * 120.0} action={() => handlePlaneClick(index)}/>
+              )
+            })
+          }
         </Suspense>
       </Canvas>
 
       <div className="o-wrapper__root--fixed">
         <div ref={domContent}></div>
       </div>
-      <ScrollBar smooth={props.smooth}/>
+      <ScrollBar />
     </React.Fragment>
   );
 };
